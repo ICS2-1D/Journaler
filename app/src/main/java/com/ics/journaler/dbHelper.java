@@ -24,17 +24,17 @@ public class dbHelper extends SQLiteOpenHelper {
 
     //sql command - blue print for every journal page
     public static final String CREATE_JOURNAL_TABLE =
-            "CREATE TABLE" + TABLE_JOURNAL_ENTRIES +
-                    "(" +
-                    COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_TITLE + "TEXT NOT NULL, " +
-                    COLUMN_CONTENT + "TEXT NOT NULL," +
-                    COLUMN_CREATED_AT + "DATETIME DEFAULT CURRENT_TIMESTAMP,"+
-                    COLUMN_UPDATED_AT + "DATETIME DEFAULT CURRENT_TIMESTAMP"+
-                    ")";
+            "CREATE TABLE " + TABLE_JOURNAL_ENTRIES +
+                    " ( " +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_TITLE + " TEXT NOT NULL, " +
+                    COLUMN_CONTENT + " TEXT NOT NULL, " +
+                    COLUMN_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP, "+
+                    COLUMN_UPDATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP "+
+                    " ) ";
 
     //constructor
-    public DatabaseHelper(Context context){
+    public dbHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
