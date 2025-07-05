@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class dbHelper extends SQLiteOpenHelper {
+    //jolene -connection to the db and setting up the schema
     //database info- cover of journal book
     private static final String DATABASE_NAME="Journaler.db";
     private static final int DATABASE_VERSION = 1;
