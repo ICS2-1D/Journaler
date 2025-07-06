@@ -6,15 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="#C4D1C7"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/texttitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="JOURNALER"
-        android:textSize="24dp"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="cursive"
         android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#2C3E2D"
+        />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/texttitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/hexagon_logo"
+        android:contentDescription="Journal Logo"
         />
 
     <EditText
@@ -22,9 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Entry Title"
-        android:textSize="24dp"
-        android:layout_below="@+id/texttitle"
-        android:inputType="textLongMessage"
+        android:textSize="18sp"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="15dp"
+        android:inputType="textCapSentences"
+        android:maxLines="1"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
         />
 
     <EditText
@@ -32,46 +52,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/entrytitle"
+        android:layout_marginTop="10dp"
         android:hint="Mood?"
-        android:inputType="textShortMessage"
-        android:textSize="24dp" />
+        android:inputType="textCapSentences"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        />
 
     <EditText
         android:id="@+id/entry"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:hint="What's on your mind?"
-        android:textSize="24dp"
+        android:textSize="16sp"
         android:layout_below="@+id/mood"
-        android:inputType="textLongMessage"
+        android:layout_marginTop="15dp"
+        android:inputType="textMultiLine|textCapSentences"
+        android:gravity="top|start"
+        android:minLines="8"
+        android:maxLines="12"
+        android:scrollbars="vertical"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
         />
 
     <Button
         android:id="@+id/btnInsert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:text="Add"
         android:layout_below="@id/entry"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#90C695"
+        android:textColor="#FFFFFF"
         />
 
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:text="Update"
         android:layout_below="@id/btnInsert"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#6B9FD1"
+        android:textColor="#FFFFFF"
+        />
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="View"
+        android:layout_below="@id/btnUpdate"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#4A6FA5"
+        android:textColor="#FFFFFF"
         />
 
     <Button
         android:id="@+id/btnDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:text="Delete"
-        android:layout_below="@id/btnUpdate"
+        android:layout_below="@id/btnView"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#E74C3C"
+        android:textColor="#FFFFFF"
         />
-
 
 </RelativeLayout>
