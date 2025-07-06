@@ -22,24 +22,13 @@
         android:textColor="#2C3E2D"
         />
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/texttitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/hexagon_logo"
-        android:contentDescription="Journal Logo"
-        />
-
     <EditText
         android:id="@+id/entrytitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Entry Title"
         android:textSize="18sp"
-        android:layout_below="@+id/logo"
+        android:layout_below="@+id/texttitle"
         android:layout_marginTop="15dp"
         android:inputType="textCapSentences"
         android:maxLines="1"
