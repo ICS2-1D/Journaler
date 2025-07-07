@@ -16,8 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText title, content, id;
-    Button insert, update, delete, view;
+    EditText entryTitle, mood, entry;
+    Button btnInsert, btnUpdate, btnView, btnDelete;
     dbHelper db;
 
     @Override
@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
         });
         //Ray- Linking the CRUD to the buttons
         // Initialize EditTexts and Buttons
-        id = findViewById(R.id.entry_id);
-        title = findViewById(R.id.title);
-        content = findViewById(R.id.content);
+        entryTitle = findViewById(R.id.entrytitle);
+        mood = findViewById(R.id.mood);
+        entry = findViewById(R.id.entry);
 
-        insert = findViewById(R.id.insert_btn);
-        update = findViewById(R.id.update_btn);
-        delete = findViewById(R.id.delete_btn);
-        view = findViewById(R.id.view_btn);
+        btnInsert = findViewById(R.id.btnInsert);
+        btnUpdate = findViewById(R.id.btnUpdate);
+        btnView = findViewById(R.id.btnView);
+        btnDelete = findViewById(R.id.btnDelete);
 
         db = new dbHelper(this);
 
