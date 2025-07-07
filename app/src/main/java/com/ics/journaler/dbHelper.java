@@ -27,7 +27,7 @@ public class dbHelper extends SQLiteOpenHelper {
     // sql command - blueprint for every journal page
     public static final String CREATE_JOURNAL_TABLE =
             "CREATE TABLE " + TABLE_JOURNAL_ENTRIES + " ( " +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_ID + " INTEGER PRIMARY KEY , " +
                     COLUMN_TITLE + " TEXT NOT NULL, " +
                     COLUMN_CONTENT + " TEXT NOT NULL, " +
                     COLUMN_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +

@@ -16,8 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText title, content, id;
-    Button insert, update, delete, view;
+    // Updated variable declarations to include ID field
+    EditText entryId, entryTitle, mood, entry;
+    Button btnInsert, btnUpdate, btnDelete, btnView;
     dbHelper db;
 
     @Override
@@ -32,65 +33,103 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         //Ray- Linking the CRUD to the buttons
         // Initialize EditTexts and Buttons
-        id = findViewById(R.id.entry_id);
-        title = findViewById(R.id.title);
-        content = findViewById(R.id.content);
+        entryId = findViewById(R.id.entryid);
+        entryTitle = findViewById(R.id.entrytitle);
+        mood = findViewById(R.id.mood);
+        entry = findViewById(R.id.entry);
 
-        insert = findViewById(R.id.insert_btn);
-        update = findViewById(R.id.update_btn);
-        delete = findViewById(R.id.delete_btn);
-        view = findViewById(R.id.view_btn);
+        btnInsert = findViewById(R.id.btnInsert);
+        btnUpdate = findViewById(R.id.btnUpdate);
+        btnView = findViewById(R.id.btnView);
+        btnDelete = findViewById(R.id.btnDelete);
 
         db = new dbHelper(this);
 
-        insert.setOnClickListener(new View.OnClickListener() {
+        // INSERT - Only uses title and content (ID is auto-generated)
+        btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String titleTXT = title.getText().toString();
-                String contentTXT = content.getText().toString();
+                String titleTXT = entryTitle.getText().toString().trim();
+                String contentTXT = entry.getText().toString().trim();
+                String moodTXT = mood.getText().toString().trim();
 
+                // Check if required fields are not empty
+                if (titleTXT.isEmpty() || contentTXT.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please fill in title and content", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Note: You might want to modify your dbHelper to include mood
                 boolean checkInsertData = db.insertEntry(titleTXT, contentTXT);
                 if (checkInsertData) {
                     Toast.makeText(MainActivity.this, "New Entry Inserted", Toast.LENGTH_SHORT).show();
+                    clearFields();
                 } else {
                     Toast.makeText(MainActivity.this, "New Entry Not Inserted", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        update.setOnClickListener(new View.OnClickListener() {
+        // UPDATE - Uses ID field to identify which entry to update
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idTXT = id.getText().toString();
-                String titleTXT = title.getText().toString();
-                String contentTXT = content.getText().toString();
+                String idTXT = entryId.getText().toString().trim();
+                String titleTXT = entryTitle.getText().toString().trim();
+                String contentTXT = entry.getText().toString().trim();
 
-                boolean checkUpdateData = db.updateEntry(Integer.parseInt(idTXT), titleTXT, contentTXT);
-                if (checkUpdateData) {
-                    Toast.makeText(MainActivity.this, "Entry Updated", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Entry Not Updated", Toast.LENGTH_SHORT).show();
+                // Check if required fields are not empty
+                if (idTXT.isEmpty() || titleTXT.isEmpty() || contentTXT.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please fill in ID, title, and content", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+                    int id = Integer.parseInt(idTXT);
+                    boolean checkUpdateData = db.updateEntry(id, titleTXT, contentTXT);
+                    if (checkUpdateData) {
+                        Toast.makeText(MainActivity.this, "Entry Updated", Toast.LENGTH_SHORT).show();
+                        clearFields();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Entry Not Updated - ID might not exist", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainActivity.this, "Please enter a valid ID number", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        delete.setOnClickListener(new View.OnClickListener() {
+        // DELETE - Uses ID field to identify which entry to delete
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idTXT = id.getText().toString();
+                String idTXT = entryId.getText().toString().trim();
 
-                boolean checkDeleteData = db.deleteEntry(Integer.parseInt(idTXT));
-                if (checkDeleteData) {
-                    Toast.makeText(MainActivity.this, "Entry Deleted", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Entry Not Deleted", Toast.LENGTH_SHORT).show();
+                if (idTXT.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter an ID to delete", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                try {
+                    int id = Integer.parseInt(idTXT);
+                    boolean checkDeleteData = db.deleteEntry(id);
+                    if (checkDeleteData) {
+                        Toast.makeText(MainActivity.this, "Entry Deleted", Toast.LENGTH_SHORT).show();
+                        clearFields();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Entry Not Deleted - ID might not exist", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainActivity.this, "Please enter a valid ID number", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        view.setOnClickListener(new View.OnClickListener() {
+        // VIEW - Shows all entries
+        btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Cursor res = db.getAllEntries();
@@ -108,18 +147,18 @@ public class MainActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setCancelable(true);
-                builder.setTitle("User Entries");
+                builder.setTitle("Journal Entries");
                 builder.setMessage(buffer.toString());
                 builder.show();
             }
         });
     }
-}
 
-
-
-        })
-        }
-
+    // Helper method to clear all input fields
+    private void clearFields() {
+        entryId.setText("");
+        entryTitle.setText("");
+        mood.setText("");
+        entry.setText("");
     }
 }
